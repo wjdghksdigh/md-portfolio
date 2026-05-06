@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/navigation';
 // components
 import ViewButton from '../design/button/view';
+import ButtonComponent from '@/app/design/button';
 
 export default function InfoPage() {
   const router = useRouter();
@@ -116,7 +117,11 @@ export default function InfoPage() {
             </DescWrapper>
           </Info2Inner>
           <Info2Inner>
-            <ViewButton label="View More" borderColor="black" color="black" onClick={handleClick} />
+            <ButtonComponent.RoundWhiteButton_SS
+              text="View More"
+              onClick={handleClick}
+              style={{ width: 'fit-content' }}
+            />
           </Info2Inner>
         </Info2>
       </Content>
@@ -143,7 +148,7 @@ const Content = styled.div`
   gap: 60px;
 
   ${({ theme }) => theme.breakpoint.tablet} {
-    padding: 0 20px;
+    padding: 20px;
     flex-direction: column;
   }
 `;
@@ -175,6 +180,10 @@ const MySelf = styled.div`
   p {
     ${({ theme }) => theme.applyTypography(theme.typography.Body_16_Medium)}
     color: ${({ theme }) => theme.color.NEUTRAL.Grey_60};
+  }
+
+  ${({ theme }) => theme.breakpoint.tablet} {
+    display: none;
   }
 `;
 

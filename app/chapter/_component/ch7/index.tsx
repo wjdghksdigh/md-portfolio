@@ -11,7 +11,7 @@ export default function Chapter7({ setPage }: { setPage: (page: number) => void 
           <h3>시즌 키 트렌드 키워드와 버즈량 기반 인사이트를 직접 도출합니다.</h3>
           <ContentRightBtm>
             <BtnWrapper onClick={() => setPage(8)}>
-              <span>chapter 6</span>
+              <span>chapter 8</span>
             </BtnWrapper>
           </ContentRightBtm>
         </ContentTop>
@@ -122,7 +122,8 @@ const ImgWrapper = styled.img`
   border-radius: 8px;
 
   ${({ theme }) => theme.breakpoint.mobile} {
-    height: 300px;
+    width: 100%;
+    height: auto;
   }
 `;
 

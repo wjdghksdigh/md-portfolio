@@ -24,8 +24,8 @@ export default function Chapter6({ setPage }: { setPage: (page: number) => void 
             <p>데이터 기반 프로모션 전략 제안</p>
           </div>
           <ContentRightBtm>
-            <BtnWrapper onClick={() => setPage(3)}>
-              <span>chapter3</span>
+            <BtnWrapper onClick={() => setPage(7)}>
+              <span>chapter7</span>
             </BtnWrapper>
           </ContentRightBtm>
         </ContentLeft>

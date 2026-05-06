@@ -26,7 +26,7 @@ export default function MainPage() {
           <SubTitle>Kim Jeong Hwan</SubTitle>
         </TitleWrapper>
         <BtnWrapper>
-          <ViewButton onClick={handleClick} label="INFO" />
+          <ViewButton onClick={handleClick} borderColor="black" color="black" label="INFO" />
         </BtnWrapper>
       </Content>
     </Container>
@@ -85,7 +85,7 @@ const MainTitle = styled.h1`
   font-family: ${Jost.bold.fontFamily};
   font-weight: ${Jost.bold.fontWeight};
   font-size: 80px;
-  color: ${({ theme }) => theme.color.NEUTRAL.White};
+  color: ${({ theme }) => theme.color.NEUTRAL.Basic};
   letter-spacing: 0.1em;
 
   ${({ theme }) => theme.breakpoint.mobile} {
@@ -97,8 +97,7 @@ const SubTitle = styled.h3`
   font-family: ${Jost.bold.fontFamily};
   font-weight: ${Jost.bold.fontWeight};
   font-size: 40px;
-  color: #fff;
-
+  color: ${({ theme }) => theme.color.NEUTRAL.Basic};
   /* ${({ theme }) => theme.breakpoint.tablet} {
    font-size: 30px;
   } */

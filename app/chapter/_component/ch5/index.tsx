@@ -89,7 +89,9 @@ const ContentItems = styled.div`
   display: flex;
   flex-direction: row;
   gap: 24px;
-  margin-top: 24px ${({ theme }) => theme.breakpoint.mobile} {
+  margin-top: 24px;
+
+  ${({ theme }) => theme.breakpoint.mobile} {
     flex-direction: column;
   }
 `;
