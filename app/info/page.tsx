@@ -6,10 +6,12 @@ import { useRouter } from 'next/navigation';
 // components
 import ViewButton from '../design/button/view';
 import ButtonComponent from '@/app/design/button';
+import LoadingSpinner from '@/app/design/loading';
 
 export default function InfoPage() {
   const router = useRouter();
   const [leaving, setLeaving] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const handleClick = () => {
     setLeaving(true);
@@ -17,10 +19,12 @@ export default function InfoPage() {
   };
 
   return (
-    <Container $leaving={leaving}>
+    <>
+      {!loaded && <LoadingSpinner />}
+      <Container $leaving={leaving} $loaded={loaded}>
       <Content>
         <Info1>
-          <MyImage src="/img/info/portfolio_my.jpeg" alt="My Image" />
+          <MyImage src="/img/info/portfolio_my.jpeg" alt="My Image" onLoad={() => setLoaded(true)} />
           <MySelf>
             <p>
               안녕하세요.
@@ -126,10 +130,11 @@ export default function InfoPage() {
         </Info2>
       </Content>
     </Container>
+    </>
   );
 }
 
-const Container = styled.div<{ $leaving: boolean }>`
+const Container = styled.div<{ $leaving: boolean; $loaded: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,7 +142,7 @@ const Container = styled.div<{ $leaving: boolean }>`
   height: 100vh;
   background-color: #fff;
   transition: opacity 0.5s ease;
-  opacity: ${({ $leaving }) => ($leaving ? 0 : 1)};
+  opacity: ${({ $leaving, $loaded }) => ($leaving ? 0 : $loaded ? 1 : 0)};
 `;
 
 const Content = styled.div`

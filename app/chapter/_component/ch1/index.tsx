@@ -1,18 +1,27 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // components
 import ButtonComponent from '@/app/design/button';
+import LoadingSpinner from '@/app/design/loading';
 
 export default function Chapter1({ setPage }: { setPage: (page: number) => void }) {
   const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(false);
+  }, [step]);
+
   return (
-    <Container>
+    <>
+      {!loaded && <LoadingSpinner />}
+      <Container $loaded={loaded}>
       <>
         {step === 1 && (
           <Content1>
-            <ImgWrapper src="/img/ch/jh-icon.png" alt="icon" />
+            <ImgWrapper src="/img/ch/jh-icon.png" alt="icon" onLoad={() => setLoaded(true)} />
             <div className="col">
               <h3>저는 성실한 개발자였습니다.</h3>
               <ButtonComponent.RoundWhiteButton_SS
@@ -26,7 +35,7 @@ export default function Chapter1({ setPage }: { setPage: (page: number) => void 
 
         {step === 2 && (
           <Content2>
-            <ImgWrapper2 src="/img/ch/github.png" alt="dev" />
+            <ImgWrapper2 src="/img/ch/github.png" alt="dev" onLoad={() => setLoaded(true)} />
             <p>
               저는 꾸준히 성장하는 개발자였습니다. 4년을 공부하고 2년을 개발자로 일하며, 다양한
               프로젝트에 참여하고 기술 스택을 확장해왔습니다. 하지만 어느 순간, 커리어에 대한 고민이
@@ -63,21 +72,24 @@ export default function Chapter1({ setPage }: { setPage: (page: number) => void 
               </Content3LeftBtm>
             </Content3Left>
             <Content3Right>
-              <ImgWrapper3 src="/img/ch/fashion_scene.png" alt="md" />
+              <ImgWrapper3 src="/img/ch/fashion_scene.png" alt="md" onLoad={() => setLoaded(true)} />
             </Content3Right>
           </Content3>
         )}
       </>
     </Container>
+    </>
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<{ $loaded: boolean }>`
   width: 100%;
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  opacity: ${({ $loaded }) => ($loaded ? 1 : 0)};
+  transition: opacity 0.5s ease;
 `;
 
 const Content1 = styled.div`

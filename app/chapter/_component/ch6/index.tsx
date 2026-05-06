@@ -1,10 +1,15 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { useState } from 'react';
+import LoadingSpinner from '@/app/design/loading';
 
 export default function Chapter6({ setPage }: { setPage: (page: number) => void }) {
+  const [loaded, setLoaded] = useState(false);
   return (
-    <Container>
+    <>
+      {!loaded && <LoadingSpinner />}
+      <Container $loaded={loaded}>
       <Content>
         <ContentLeft>
           <div className="col">
@@ -30,18 +35,21 @@ export default function Chapter6({ setPage }: { setPage: (page: number) => void 
           </ContentRightBtm>
         </ContentLeft>
         <ContentRight>
-          <ImgWrapper src="/img/ch/ai-6.png" alt="md" />
+          <ImgWrapper src="/img/ch/ai-6.png" alt="md" onLoad={() => setLoaded(true)} />
         </ContentRight>
       </Content>
     </Container>
+    </>
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<{ $loaded: boolean }>`
   width: 100%;
   align-items: center;
   display: flex;
   flex-direction: column;
+  opacity: ${({ $loaded }) => ($loaded ? 1 : 0)};
+  transition: opacity 0.5s ease;
 `;
 
 const Content = styled.div`

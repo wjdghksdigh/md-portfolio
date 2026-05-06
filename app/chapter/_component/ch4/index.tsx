@@ -1,10 +1,15 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { useState } from 'react';
+import LoadingSpinner from '@/app/design/loading';
 
 export default function Chapter4({ setPage }: { setPage: (page: number) => void }) {
+  const [loaded, setLoaded] = useState(false);
   return (
-    <Container>
+    <>
+      {!loaded && <LoadingSpinner />}
+      <Container $loaded={loaded}>
       <Content>
         <ContentLeft>
           <h3>
@@ -33,18 +38,21 @@ export default function Chapter4({ setPage }: { setPage: (page: number) => void 
               포토나 일러없이 ai로 이미지나 포스터정도를 만들수있다는 이미지를 만들어줘
             </ChatContent>
           </ChatWrapper>
-          <ImgWrapper src="/img/ch/ai-3.png" alt="chatgpt" />
+          <ImgWrapper src="/img/ch/ai-3.png" alt="chatgpt" onLoad={() => setLoaded(true)} />
         </ContentRight>
       </Content>
     </Container>
+    </>
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<{ $loaded: boolean }>`
   width: 100%;
   align-items: center;
   display: flex;
   flex-direction: column;
+  opacity: ${({ $loaded }) => ($loaded ? 1 : 0)};
+  transition: opacity 0.5s ease;
 `;
 
 const Content = styled.div`

@@ -1,16 +1,21 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import LoadingSpinner from '@/app/design/loading';
 // components
 import ButtonComponent from '@/app/design/button';
 
 export default function Chapter8({ setPage }: { setPage: (page: number) => void }) {
   const router = useRouter();
+  const [loaded, setLoaded] = useState(false);
   return (
-    <Container>
+    <>
+      {!loaded && <LoadingSpinner />}
+      <Container $loaded={loaded}>
       <Content1>
-        <ImgWrapper src="/img/ch/fashion_scene.svg" alt="icon" />
+        <ImgWrapper src="/img/ch/fashion_scene.svg" alt="icon" onLoad={() => setLoaded(true)} />
         <div className="col">
           <h3>
             AI뿐만 아니라 다양한 분야에서 끊임없이 배우고 기여하는 직원이 되겠습니다. 감사합니다.
@@ -23,15 +28,18 @@ export default function Chapter8({ setPage }: { setPage: (page: number) => void 
         </div>
       </Content1>
     </Container>
+    </>
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<{ $loaded: boolean }>`
   width: 100%;
   align-items: center;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  opacity: ${({ $loaded }) => ($loaded ? 1 : 0)};
+  transition: opacity 0.5s ease;
 `;
 
 const Content1 = styled.div`

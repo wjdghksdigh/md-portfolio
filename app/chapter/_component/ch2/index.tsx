@@ -1,13 +1,18 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { useState } from 'react';
+import LoadingSpinner from '@/app/design/loading';
 
 export default function Chapter2({ setPage }: { setPage: (page: number) => void }) {
+  const [loaded, setLoaded] = useState(false);
   return (
-    <Container>
+    <>
+      {!loaded && <LoadingSpinner />}
+      <Container $loaded={loaded}>
       <Content>
         <ContentLeft>
-          <ImgWrapper src="/img/ch/ai-2.png" alt="md" />
+          <ImgWrapper src="/img/ch/ai-2.png" alt="md" onLoad={() => setLoaded(true)} />
         </ContentLeft>
         <ContentRight>
           <h2>감각은 사람이, 데이터는 AI</h2>
@@ -28,14 +33,17 @@ export default function Chapter2({ setPage }: { setPage: (page: number) => void 
         </ContentRight>
       </Content>
     </Container>
+    </>
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<{ $loaded: boolean }>`
   width: 100%;
   align-items: center;
   display: flex;
   flex-direction: column;
+  opacity: ${({ $loaded }) => ($loaded ? 1 : 0)};
+  transition: opacity 0.5s ease;
 `;
 
 const Content = styled.div`

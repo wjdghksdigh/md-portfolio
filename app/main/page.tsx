@@ -7,10 +7,12 @@ import { Jost } from '@/app/styles/font';
 import { useRouter } from 'next/navigation';
 // components
 import ViewButton from '@/app/design/button/view';
+import LoadingSpinner from '@/app/design/loading';
 
 export default function MainPage() {
   const router = useRouter();
   const [leaving, setLeaving] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleClick = () => {
     setLeaving(true);
@@ -18,8 +20,10 @@ export default function MainPage() {
   };
 
   return (
-    <Container $leaving={leaving}>
-      <BgImage src="/img/main/main-bg.svg" alt="" fill priority />
+    <>
+      {!imageLoaded && <LoadingSpinner />}
+      <Container $leaving={leaving} $loaded={imageLoaded}>
+      <BgImage src="/img/main/main-bg.svg" alt="" fill priority onLoad={() => setImageLoaded(true)} />
       <Content>
         <TitleWrapper>
           <MainTitle>PORTFOLIO</MainTitle>
@@ -30,10 +34,11 @@ export default function MainPage() {
         </BtnWrapper>
       </Content>
     </Container>
+    </>
   );
 }
 
-const Container = styled.div<{ $leaving: boolean }>`
+const Container = styled.div<{ $leaving: boolean; $loaded: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -42,7 +47,7 @@ const Container = styled.div<{ $leaving: boolean }>`
   min-height: 100vh;
   overflow: hidden;
   transition: opacity 0.5s ease;
-  opacity: ${({ $leaving }) => ($leaving ? 0 : 1)};
+  opacity: ${({ $leaving, $loaded }) => ($leaving ? 0 : $loaded ? 1 : 0)};
   background-color: #0a0606;
   ${({ theme }) => theme.breakpoint.tablet} {
     overflow-x: auto;

@@ -1,10 +1,15 @@
 'use client';
 
 import styled from '@emotion/styled';
+import { useState } from 'react';
+import LoadingSpinner from '@/app/design/loading';
 
 export default function Chapter7({ setPage }: { setPage: (page: number) => void }) {
+  const [loaded, setLoaded] = useState(false);
   return (
-    <Container>
+    <>
+      {!loaded && <LoadingSpinner />}
+      <Container $loaded={loaded}>
       <Content>
         <ContentTop>
           <h2>WGSN 같은 유료 서비스 없이도, SNS · 검색 데이터 · 런웨이 이미지를 AI로 분석해</h2>
@@ -16,18 +21,21 @@ export default function Chapter7({ setPage }: { setPage: (page: number) => void 
           </ContentRightBtm>
         </ContentTop>
         <ContentBtm>
-          <ImgWrapper src="/img/ch/ai-5.png" alt="trend" />
+          <ImgWrapper src="/img/ch/ai-5.png" alt="trend" onLoad={() => setLoaded(true)} />
         </ContentBtm>
       </Content>
     </Container>
+    </>
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<{ $loaded: boolean }>`
   width: 100%;
   align-items: center;
   display: flex;
   flex-direction: column;
+  opacity: ${({ $loaded }) => ($loaded ? 1 : 0)};
+  transition: opacity 0.5s ease;
 `;
 
 const Content = styled.div`
