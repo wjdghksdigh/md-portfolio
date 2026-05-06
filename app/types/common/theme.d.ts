@@ -50,6 +50,8 @@ declare module '@emotion/react' {
         Neutral_800: string;
       };
       ACCENT: {
+        Point_red: string;
+        Down_red: string;
         Red_100: string;
         Blue_100: string;
       };

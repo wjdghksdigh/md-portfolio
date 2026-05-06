@@ -34,6 +34,8 @@ const theme: Theme = {
       Neutral_800: '#424242',
     },
     ACCENT: {
+      Point_red: '#ff1744',
+      Down_red: '#D50032',
       Red_100: '#f43',
       Blue_100: '#5E9BF6',
     },

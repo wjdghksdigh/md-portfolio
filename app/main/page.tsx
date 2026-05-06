@@ -26,7 +26,7 @@ export default function MainPage() {
           <SubTitle>Kim Jeong Hwan</SubTitle>
         </TitleWrapper>
         <BtnWrapper>
-          <ViewButton onClick={handleClick} />
+          <ViewButton onClick={handleClick} label="INFO" />
         </BtnWrapper>
       </Content>
     </Container>

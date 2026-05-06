@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/navigation';
 // components
@@ -7,9 +8,15 @@ import ViewButton from '../design/button/view';
 
 export default function InfoPage() {
   const router = useRouter();
+  const [leaving, setLeaving] = useState(false);
+
+  const handleClick = () => {
+    setLeaving(true);
+    setTimeout(() => router.push('/chapter'), 500);
+  };
 
   return (
-    <Container>
+    <Container $leaving={leaving}>
       <Content>
         <Info1>
           <MyImage src="/img/info/portfolio_my.jpeg" alt="My Image" />
@@ -109,12 +116,7 @@ export default function InfoPage() {
             </DescWrapper>
           </Info2Inner>
           <Info2Inner>
-            <ViewButton
-              label="View More"
-              borderColor="black"
-              color="black"
-              onClick={() => router.push('/info')}
-            />
+            <ViewButton label="View More" borderColor="black" color="black" onClick={handleClick} />
           </Info2Inner>
         </Info2>
       </Content>
@@ -122,13 +124,15 @@ export default function InfoPage() {
   );
 }
 
-const Container = styled.div`
+const Container = styled.div<{ $leaving: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100vh;
   background-color: #fff;
+  transition: opacity 0.5s ease;
+  opacity: ${({ $leaving }) => ($leaving ? 0 : 1)};
 `;
 
 const Content = styled.div`
@@ -136,7 +140,7 @@ const Content = styled.div`
   max-width: 1200px;
   display: flex;
   flex-direction: row;
-  gap: 24px;
+  gap: 60px;
 
   ${({ theme }) => theme.breakpoint.tablet} {
     padding: 0 20px;
@@ -203,7 +207,7 @@ const Line = styled.div`
   align-items: center;
   height: 100%;
   min-height: 30px;
-  background: #c52a0c;
+  background: #ff1744;
   flex-shrink: 0;
   margin-top: 4px;
 `;
